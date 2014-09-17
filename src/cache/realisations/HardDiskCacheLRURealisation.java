@@ -1,14 +1,13 @@
-import java.io.*;
-import java.util.*;
+package cache.realisations;
 
-public class HardDiskCacheClassLRU<K, V> extends HardDiskCacheClass<K, V> {
-    public HardDiskCacheClassLRU(final int MAX_ENTRIES) {
-        map = new LinkedHashMap<K, String>(MAX_ENTRIES, 0.75F, true) {
-            protected boolean removeEldestEntry(Map.Entry eldest) {
-                //System.out.println(eldest);
-                return size() > MAX_ENTRIES;
-            }
-        };
+import cache.caches.HardDiskCacheClass;
+
+import java.io.*;
+import java.util.LinkedHashMap;
+
+public class HardDiskCacheLRURealisation<K, V> extends HardDiskCacheClass<K, V> {
+    public HardDiskCacheLRURealisation(final int MAX_ENTRIES) {
+        map = new LinkedHashMap<K, String>(MAX_ENTRIES, 0.75F, true);
         File folder = new File("temp\\");
         if (!folder.exists()) {
             folder.mkdirs();
@@ -20,7 +19,7 @@ public class HardDiskCacheClassLRU<K, V> extends HardDiskCacheClass<K, V> {
     }
 
     public static void main(String[] args) {
-        HardDiskCacheClassLRU<String, String> cache = new HardDiskCacheClassLRU<String, String>(3);
+        HardDiskCacheLRURealisation<String, String> cache = new HardDiskCacheLRURealisation<String, String>(3);
         try {
             cache.addObject("key1", "value1");
             cache.printAllObjects();

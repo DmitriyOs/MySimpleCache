@@ -1,6 +1,12 @@
+package cache;
+
+import cache.caches.CacheInterface;
+import cache.realisations.TwoLevelCacheLFURealisation;
+import cache.realisations.TwoLevelCacheLRURealisation;
+
 public class Main {
 
-    static CacheInterface<String,String> cache;
+    static CacheInterface<String, String> cache;
     static String strategy = "LRU";
     static int sizeLevelOne = 2;
     static int sizeLevelTwo = 3;
@@ -31,12 +37,12 @@ public class Main {
         }
 
         System.out.println(strategy);
-        System.out.println(sizeLevelOne+" "+sizeLevelTwo);
+        System.out.println(sizeLevelOne + " " + sizeLevelTwo);
 
         if (strategy.equals("LRU")) {
-            cache=new TwoLevelCacheLRURealisation<String, String>(sizeLevelOne,sizeLevelTwo);
+            cache = new TwoLevelCacheLRURealisation<String, String>(sizeLevelOne, sizeLevelTwo);
         } else if (strategy.equals("LFU")) {
-            cache=new TwoLevelCacheLFURealisation<String, String>(sizeLevelOne,sizeLevelTwo);
+            cache = new TwoLevelCacheLFURealisation<String, String>(sizeLevelOne, sizeLevelTwo);
         }
 
         try {
@@ -53,7 +59,7 @@ public class Main {
             System.out.println("Objects 3,4,5 used:");
             cache.printAllObjects();
             System.out.println("Add object 6:");
-            cache.addObject("key6","value6");
+            cache.addObject("key6", "value6");
             cache.printAllObjects();
             cache.clearCache();
 

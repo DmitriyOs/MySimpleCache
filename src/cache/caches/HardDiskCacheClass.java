@@ -1,5 +1,9 @@
+package cache.caches;
+
 import java.io.*;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
 
 public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     protected Map<K, String> map;
@@ -28,8 +32,7 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
         fileStream.close();
     }
 
-    @Override
-    public V getObject(K key) throws IOException {
+    private V getFromFile(K key){
         String file = map.get(key);
 
         try {
@@ -49,8 +52,13 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     }
 
     @Override
+    public V getObject(K key) throws IOException {
+        return getFromFile(key);
+    }
+
+    @Override
     public V removeObject(K key) throws IOException {
-        V result = getObject(key);
+        V result = getFromFile(key);
         File file = new File(map.remove(key));
         file.delete();
         return result;

@@ -1,3 +1,5 @@
+package cache.caches;
+
 import java.util.*;
 
 public class RamCacheClass<K, V> implements CacheInterface<K, V> {

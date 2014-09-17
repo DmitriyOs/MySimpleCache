@@ -1,13 +1,12 @@
-import java.util.*;
+package cache.realisations;
 
-public class RamCacheClassLRU<K, V> extends RamCacheClass<K, V> {
-    public RamCacheClassLRU(final int MAX_ENTRIES) {
-        map = new LinkedHashMap<K, V>(MAX_ENTRIES, 0.75F, true) {
-            protected boolean removeEldestEntry(Map.Entry eldest) {
-                //System.out.println(eldest);
-                return size() > MAX_ENTRIES;
-            }
-        };
+import cache.caches.RamCacheClass;
+
+import java.util.LinkedHashMap;
+
+public class RamCacheLRURealisation<K, V> extends RamCacheClass<K, V> {
+    public RamCacheLRURealisation(final int MAX_ENTRIES) {
+        map = new LinkedHashMap<K, V>(MAX_ENTRIES, 0.75F, true);
     }
 
     public K getEldestKey() {
@@ -15,7 +14,7 @@ public class RamCacheClassLRU<K, V> extends RamCacheClass<K, V> {
     }
 
     public static void main(String[] args) {
-        RamCacheClassLRU<String, String> cache = new RamCacheClassLRU<String, String>(3);
+        RamCacheLRURealisation<String, String> cache = new RamCacheLRURealisation<String, String>(3);
         cache.addObject("key1", "value1");
         cache.printAllObjects();
         cache.addObject("key2", "value2");

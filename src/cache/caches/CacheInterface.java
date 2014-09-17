@@ -1,3 +1,5 @@
+package cache.caches;
+
 import java.io.IOException;
 
 public interface CacheInterface<K, V> {
