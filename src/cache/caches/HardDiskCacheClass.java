@@ -8,7 +8,7 @@ import java.util.Collection;
 public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     protected Map<K, String> map;
 
-    public HardDiskCacheClass() {
+    public HardDiskCacheClass(int size) {
         map = new HashMap<K, String>();
 
         File folder = new File("temp\\");
@@ -17,22 +17,38 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
         }
     }
 
+    protected HardDiskCacheClass() {
+        File folder = new File("temp\\");
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+    }
+
     @Override
-    public void addObject(K key, V value) throws IOException {
+    public void addObject(K key, V value) {
         String file = "temp\\" + key + ".cache";
         map.put(key, file);
 
-        FileOutputStream fileStream = new FileOutputStream(file);
-        ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+        FileOutputStream fileStream;
+        ObjectOutputStream objectStream;
 
-        objectStream.writeObject(value);
-        objectStream.flush();
-        objectStream.close();
-        fileStream.flush();
-        fileStream.close();
+        try {
+            fileStream = new FileOutputStream(file);
+            objectStream = new ObjectOutputStream(fileStream);
+
+            objectStream.writeObject(value);
+
+            objectStream.flush();
+            objectStream.close();
+            fileStream.flush();
+            fileStream.close();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
     }
 
-    private V getFromFile(K key){
+    private V getFromFile(K key) {
         String file = map.get(key);
 
         try {
@@ -52,12 +68,12 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     }
 
     @Override
-    public V getObject(K key) throws IOException {
+    public V getObject(K key) {
         return getFromFile(key);
     }
 
     @Override
-    public V removeObject(K key) throws IOException {
+    public V removeObject(K key) {
         V result = getFromFile(key);
         File file = new File(map.remove(key));
         file.delete();
@@ -85,7 +101,7 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     }
 
     @Override
-    public void printAllObjects() throws IOException {
+    public void printAllObjects() {
         Collection<String> values = map.values();
         System.out.print("[ ");
         for (String file : values) {
@@ -97,7 +113,7 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
                 fileStream.close();
                 objectStream.close();
 
-                System.out.print(value+" ");
+                System.out.print(value + " ");
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {
             }
@@ -114,7 +130,6 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
             cache.addObject("key2", "value2");
             cache.printAllObjects();
             cache.clearCache();
-            //System.out.println(cache.removeObject("key1"));
         } catch (Exception e) {
         }
 

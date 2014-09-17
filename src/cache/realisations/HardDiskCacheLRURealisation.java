@@ -4,14 +4,15 @@ import cache.caches.HardDiskCacheClass;
 
 import java.io.*;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class HardDiskCacheLRURealisation<K, V> extends HardDiskCacheClass<K, V> {
     public HardDiskCacheLRURealisation(final int MAX_ENTRIES) {
-        map = new LinkedHashMap<K, String>(MAX_ENTRIES, 0.75F, true);
-        File folder = new File("temp\\");
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
+        map = new LinkedHashMap<K, String>(MAX_ENTRIES, 0.75F, true) {
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > MAX_ENTRIES;
+            }
+        };
     }
 
     public K getEldestKey() {
