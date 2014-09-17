@@ -1,7 +1,5 @@
 package cache.caches;
 
-import java.io.IOException;
-
 public interface CacheInterface<K, V> {
     void addObject(K key, V value);
     V getObject(K key);

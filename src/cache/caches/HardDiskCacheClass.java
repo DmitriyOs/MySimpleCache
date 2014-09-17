@@ -5,9 +5,19 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
 
+/**
+ * General realisation of one level Hard Disk Cache.
+ *
+ * @param <K> Key of Object in the Cache
+ * @param <V> Value of Object in the Cache
+ */
 public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     protected Map<K, String> map;
 
+    /**
+     * Constructor of one level Hard Disk Cache.
+     * @param size size of Cache
+     */
     public HardDiskCacheClass(int size) {
         map = new HashMap<K, String>();
 
@@ -24,6 +34,11 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
         }
     }
 
+    /**
+     * Put Object into Hard Disk Cache.
+     * @param key Key of Object in the Cache
+     * @param value Value of Object in the Cache
+     */
     @Override
     public void addObject(K key, V value) {
         String file = "temp\\" + key + ".cache";
@@ -48,6 +63,11 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     }
 
+    /**
+     * Read Object from HDD.
+     * @param key Key of Object in the Cache
+     * @return Value of Object
+     */
     private V getFromFile(K key) {
         String file = map.get(key);
 
@@ -100,6 +120,9 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
         return map.containsKey(key);
     }
 
+    /**
+     * Print all values from the Hard Disk Cache.
+     */
     @Override
     public void printAllObjects() {
         Collection<String> values = map.values();
@@ -119,19 +142,5 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
             }
         }
         System.out.println("]");
-    }
-
-
-    public static void main(String[] args) {
-        HardDiskCacheClass<String, String> cache = new HardDiskCacheClass<String, String>();
-        try {
-            cache.addObject("key1", "value1");
-            cache.printAllObjects();
-            cache.addObject("key2", "value2");
-            cache.printAllObjects();
-            cache.clearCache();
-        } catch (Exception e) {
-        }
-
     }
 }

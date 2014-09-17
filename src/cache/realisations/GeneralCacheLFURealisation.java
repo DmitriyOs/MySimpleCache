@@ -3,6 +3,11 @@ package cache.realisations;
 import cache.caches.CacheInterface;
 import cache.frequency.FrequencyClass;
 
+/**
+ * General realisation of LFU strategy in one level Cache.
+ * @param <K> Key of Object in the Cache
+ * @param <V> Value of Object in the Cache
+ */
 abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> {
     final int MAX_SIZE;
     CacheInterface<K, V> cache;
@@ -12,6 +17,11 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
         MAX_SIZE = sizeOfCache;
     }
 
+    /**
+     * Put Object into Cache with frequency equals 1. Control max size of Cache. Remove Least Frequency Used Object.
+     * @param key Key of Object in the Cache
+     * @param value Value of Object in the Cache
+     */
     @Override
     public void addObject(K key, V value) {
         if (cache.sizeOfCache() >= MAX_SIZE) {
@@ -23,6 +33,12 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
         frequencyMap.add(key);
     }
 
+    /**
+     * Put Object into Cache with frequency equals valueOfFrequency. Control max size of Cache. Remove Least Frequency Used Object.
+     * @param key Key of Object in the Cache
+     * @param value Value of Object in the Cache
+     * @param valueOfFrequency Frequency of Object
+     */
     public void addObject(K key, V value, int valueOfFrequency) {
         if (cache.sizeOfCache() >= MAX_SIZE) {
             K minKey = getMinFrequencyKey();

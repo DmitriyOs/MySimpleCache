@@ -2,6 +2,12 @@ package cache.caches;
 
 import java.util.*;
 
+/**
+ * General realisation of one level Ram Cache.
+ *
+ * @param <K> Key of Object in the Cache
+ * @param <V> Value of Object in the Cache
+ */
 public class RamCacheClass<K, V> implements CacheInterface<K, V> {
     protected Map<K, V> map;
 
@@ -9,6 +15,11 @@ public class RamCacheClass<K, V> implements CacheInterface<K, V> {
         map = new HashMap<K, V>();
     }
 
+    /**
+     * Put Object into Ram Cache.
+     * @param key of Object in the Cache
+     * @param value Value of Object in the Cache
+     */
     @Override
     public void addObject(K key, V value) {
         map.put(key, value);
@@ -39,29 +50,12 @@ public class RamCacheClass<K, V> implements CacheInterface<K, V> {
         return map.containsKey(key);
     }
 
+    /**
+     * Print all values from the Ram Cache
+     */
     @Override
     public void printAllObjects() {
         System.out.println(map.values());
     }
 
-
-    public static void main(String[] args) {
-        RamCacheClass<String, String> cache = new RamCacheClass<String, String>();
-        cache.addObject("key1", "value1");
-        cache.addObject("key2", "value2");
-        cache.addObject("key3", "value3");
-        cache.addObject("key4", "value4");
-        cache.addObject("key5", "value5");
-        cache.printAllObjects();
-        cache.addObject("key3", "value000");
-        cache.printAllObjects();
-        cache.removeObject("key4");
-        cache.printAllObjects();
-        cache.removeObject("key4");
-        cache.printAllObjects();
-        System.out.println(cache.sizeOfCache());
-        cache.clearCache();
-        System.out.println(cache.sizeOfCache());
-        cache.printAllObjects();
-    }
 }

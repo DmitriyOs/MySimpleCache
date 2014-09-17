@@ -2,9 +2,11 @@ package cache.realisations;
 
 import cache.caches.CacheInterface;
 
-import java.io.IOException;
-
-//Least-Frequently Used (Наименее часто используемый)
+/**
+ * Realisation of two level Cache with LFU strategy.
+ * @param <K> Key of Object in the Cache
+ * @param <V> Value of Object in the Cache
+ */
 public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
     final int MAX_SIZE_LEVEL_ONE;
     final int MAX_SIZE_LEVEL_TWO;
@@ -28,6 +30,11 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
         ramCache.addObject(key, value);
     }
 
+    /**
+     * Get Value of Object from Cache. Recache caches.
+     * @param key Key of Object
+     * @return Value of Object
+     */
     @Override
     public V getObject(K key) {
         if (ramCache.containsKey(key)) {
@@ -98,24 +105,5 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
         System.out.println("HardDisk cache (" + hardDiskCache.sizeOfCache() + " items):");
         hardDiskCache.printAllObjects();
         System.out.println();
-    }
-
-    public static void main(String[] args) {
-        TwoLevelCacheLFURealisation<String, String> cache = new TwoLevelCacheLFURealisation<String, String>(2, 3);
-        try {
-            cache.addObject("key1", "value1");
-            cache.addObject("key2", "value2");
-            cache.addObject("key3", "value3");
-            cache.addObject("key4", "value4");
-            cache.addObject("key5", "value5");
-            cache.printAllObjects();
-            cache.getObject("key3");
-            cache.getObject("key4");
-            cache.getObject("key5");
-            cache.printAllObjects();
-            cache.clearCache();
-
-        } catch (Exception e) {
-        }
     }
 }
