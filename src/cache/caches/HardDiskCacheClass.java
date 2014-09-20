@@ -16,9 +16,10 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     /**
      * Constructor of one level Hard Disk Cache.
-     * @param size size of Cache
+     *
+     * @param sizeOfCache size of Cache
      */
-    public HardDiskCacheClass(int size) {
+    public HardDiskCacheClass(int sizeOfCache) {
         map = new HashMap<K, String>();
 
         File folder = new File("temp\\");
@@ -36,7 +37,8 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     /**
      * Put Object into Hard Disk Cache.
-     * @param key Key of Object in the Cache
+     *
+     * @param key   Key of Object in the Cache
      * @param value Value of Object in the Cache
      */
     @Override
@@ -65,6 +67,7 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     /**
      * Read Object from HDD.
+     *
      * @param key Key of Object in the Cache
      * @return Value of Object
      */

@@ -73,6 +73,7 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
         frequencyMap.clear();
     }
 
+    @Override
     public boolean containsKey(K key) {
         return cache.containsKey(key);
     }

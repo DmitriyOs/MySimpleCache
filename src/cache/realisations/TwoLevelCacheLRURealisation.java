@@ -23,6 +23,7 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
 
     }
 
+    @Override
     public void addObject(K key, V value) {
         if (ramCache.sizeOfCache() == MAX_SIZE_LEVEL_ONE) {
             K eldestKey = ramCache.getEldestKey();
@@ -31,6 +32,7 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         ramCache.addObject(key, value);
     }
 
+    @Override
     public V getObject(K key) {
         if (ramCache.containsKey(key)) {
             return ramCache.getObject(key);
@@ -42,6 +44,7 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         return null;
     }
 
+    @Override
     public V removeObject(K key) {
         if (ramCache.containsKey(key)) {
             return ramCache.removeObject(key);
@@ -52,15 +55,18 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         return null;
     }
 
+    @Override
     public int sizeOfCache() {
         return ramCache.sizeOfCache() + hardDiskCache.sizeOfCache();
     }
 
+    @Override
     public void clearCache() {
         ramCache.clearCache();
         hardDiskCache.clearCache();
     }
 
+    @Override
     public boolean containsKey(K key) {
         if (ramCache.containsKey(key)) {
             return true;
@@ -71,6 +77,7 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         return false;
     }
 
+    @Override
     public void printAllObjects() {
         System.out.println("RAM cache (" + ramCache.sizeOfCache() + " items):");
         ramCache.printAllObjects();

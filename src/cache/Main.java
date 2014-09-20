@@ -53,10 +53,10 @@ public class Main {
             cache.addObject("key5", "value5");
             System.out.println("Added 5 objects:");
             cache.printAllObjects();
+            cache.getObject("key2");
             cache.getObject("key3");
-            cache.getObject("key4");
             cache.getObject("key5");
-            System.out.println("Objects 3,4,5 used:");
+            System.out.println("Objects 2,3,5 used:");
             cache.printAllObjects();
             System.out.println("Add object 6:");
             cache.addObject("key6", "value6");
