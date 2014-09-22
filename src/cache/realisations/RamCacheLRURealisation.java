@@ -13,6 +13,7 @@ import java.util.Map;
 public class RamCacheLRURealisation<K, V> extends RamCacheClass<K, V> {
     public RamCacheLRURealisation(final int MAX_ENTRIES) {
         map = new LinkedHashMap<K, V>(MAX_ENTRIES, 0.75F, true) {
+            @Override
             protected boolean removeEldestEntry(Map.Entry eldest) {
                 return size() > MAX_ENTRIES;
             }

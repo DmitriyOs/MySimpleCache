@@ -17,26 +17,16 @@ public class HardDiskCacheLRURealisation<K, V> extends HardDiskCacheClass<K, V> 
 
     public HardDiskCacheLRURealisation(int sizeOfCache) {
         MAX_SIZE = sizeOfCache;
-        map = new LinkedHashMap<K, String>(MAX_SIZE, 0.75F, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry eldest) {
-                //File file = new File(map.get(eldest));
-                //file.delete();
-                return size() > MAX_SIZE;
-            }
-        };
+        map = new LinkedHashMap<K, String>(MAX_SIZE);
     }
 
     @Override
     public void addObject(K key, V value) {
-        //TODO: Add deleting from disk for eldest entry
-
-
-        //если сделать map.get(eldest), то eldest поменяется!
-        //если реализовать через итератор, то сразу и удалять, тогда removeEldestEntry не нужен
         if (sizeOfCache() >= MAX_SIZE) {
-            File file = new File(map.get(getEldestKey()));
+            K tKey = getEldestKey();
+            File file = new File(map.get(tKey));
             file.delete();
+            removeObject(tKey);
         }
         super.addObject(key, value);
     }
