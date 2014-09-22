@@ -12,6 +12,6 @@ import cache.caches.HardDiskCacheClass;
 public class HardDiskCacheLFURealisation<K, V> extends GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> {
     public HardDiskCacheLFURealisation(int sizeOfCache) {
         super(sizeOfCache);
-        cache = new HardDiskCacheClass<K, V>(sizeOfCache);
+        cache = new HardDiskCacheClass<K, V>();
     }
 }

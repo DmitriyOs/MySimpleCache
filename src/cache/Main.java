@@ -45,26 +45,22 @@ public class Main {
             cache = new TwoLevelCacheLFURealisation<String, String>(sizeLevelOne, sizeLevelTwo);
         }
 
-        try {
-            cache.addObject("key1", "value1");
-            cache.addObject("key2", "value2");
-            cache.addObject("key3", "value3");
-            cache.addObject("key4", "value4");
-            cache.addObject("key5", "value5");
-            System.out.println("Added 5 objects:");
-            cache.printAllObjects();
-            cache.getObject("key2");
-            cache.getObject("key3");
-            cache.getObject("key5");
-            System.out.println("Objects 2,3,5 used:");
-            cache.printAllObjects();
-            System.out.println("Add object 6:");
-            cache.addObject("key6", "value6");
-            cache.printAllObjects();
-            cache.clearCache();
-
-        } catch (Exception e) {
-        }
+        cache.addObject("key1", "value1");
+        cache.addObject("key2", "value2");
+        cache.addObject("key3", "value3");
+        cache.addObject("key4", "value4");
+        cache.addObject("key5", "value5");
+        System.out.println("Added 5 objects:");
+        System.out.println(cache);
+        cache.getObject("key2");
+        cache.getObject("key3");
+        cache.getObject("key5");
+        System.out.println("Objects 2,3,5 used:");
+        System.out.println(cache);
+        System.out.println("Add object 6:");
+        cache.addObject("key6", "value6");
+        System.out.println(cache);
+        cache.clearCache();
 
 
     }

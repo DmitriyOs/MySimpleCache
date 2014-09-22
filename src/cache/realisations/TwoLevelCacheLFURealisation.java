@@ -4,6 +4,7 @@ import cache.caches.CacheInterface;
 
 /**
  * Realisation of two level Cache with LFU strategy.
+ *
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
  */
@@ -32,6 +33,7 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
 
     /**
      * Get Value of Object from Cache. Recache caches.
+     *
      * @param key Key of Object
      * @return Value of Object
      */
@@ -99,11 +101,7 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
     }
 
     @Override
-    public void printAllObjects() {
-        System.out.println("RAM cache (" + ramCache.sizeOfCache() + " items):");
-        ramCache.printAllObjects();
-        System.out.println("HardDisk cache (" + hardDiskCache.sizeOfCache() + " items):");
-        hardDiskCache.printAllObjects();
-        System.out.println();
+    public String toString() {
+        return "RAM cache:\n" + ramCache.toString() + "\nHardDisk cache:\n" + hardDiskCache.toString();
     }
 }

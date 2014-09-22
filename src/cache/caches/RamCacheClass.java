@@ -17,7 +17,8 @@ public class RamCacheClass<K, V> implements CacheInterface<K, V> {
 
     /**
      * Put Object into Ram Cache.
-     * @param key of Object in the Cache
+     *
+     * @param key   of Object in the Cache
      * @param value Value of Object in the Cache
      */
     @Override
@@ -50,12 +51,8 @@ public class RamCacheClass<K, V> implements CacheInterface<K, V> {
         return map.containsKey(key);
     }
 
-    /**
-     * Print all values from the Ram Cache
-     */
-    @Override
-    public void printAllObjects() {
-        System.out.println(map.values());
+    public String toString() {
+        return map.values().toString();
     }
 
 }

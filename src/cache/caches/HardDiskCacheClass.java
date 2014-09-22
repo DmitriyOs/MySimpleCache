@@ -1,9 +1,7 @@
 package cache.caches;
 
 import java.io.*;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * General realisation of one level Hard Disk Cache.
@@ -14,21 +12,9 @@ import java.util.Collection;
 public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     protected Map<K, String> map;
 
-    /**
-     * Constructor of one level Hard Disk Cache.
-     *
-     * @param sizeOfCache size of Cache
-     */
-    public HardDiskCacheClass(int sizeOfCache) {
+    public HardDiskCacheClass() {
         map = new HashMap<K, String>();
 
-        File folder = new File("temp\\");
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-    }
-
-    protected HardDiskCacheClass() {
         File folder = new File("temp\\");
         if (!folder.exists()) {
             folder.mkdirs();
@@ -65,14 +51,7 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     }
 
-    /**
-     * Read Object from HDD.
-     *
-     * @param key Key of Object in the Cache
-     * @return Value of Object
-     */
-    private V getFromFile(K key) {
-        String file = map.get(key);
+    private V getFromFile(String file) {
 
         try {
             FileInputStream fileStream = new FileInputStream(file);
@@ -92,12 +71,12 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     @Override
     public V getObject(K key) {
-        return getFromFile(key);
+        return getFromFile(map.get(key));
     }
 
     @Override
     public V removeObject(K key) {
-        V result = getFromFile(key);
+        V result = getFromFile(map.get(key));
         File file = new File(map.remove(key));
         file.delete();
         return result;
@@ -123,27 +102,15 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
         return map.containsKey(key);
     }
 
-    /**
-     * Print all values from the Hard Disk Cache.
-     */
-    @Override
-    public void printAllObjects() {
-        Collection<String> values = map.values();
-        System.out.print("[ ");
-        for (String file : values) {
-            try {
-                FileInputStream fileStream = new FileInputStream(file);
-                ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-                V value = (V) objectStream.readObject();
+    public String toString() {
+        Collection<String> files = map.values();
+        LinkedHashSet<V> values = new LinkedHashSet<V>();
 
-                fileStream.close();
-                objectStream.close();
+        for (String file : files) {
+            values.add(getFromFile(file));
 
-                System.out.print(value + " ");
-            } catch (IOException ex) {
-            } catch (ClassNotFoundException ex) {
-            }
         }
-        System.out.println("]");
+        return values.toString();
     }
+
 }

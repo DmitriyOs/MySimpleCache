@@ -59,7 +59,6 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
     public V removeObject(K key) {
         frequencyMap.remove(key);
         return cache.removeObject(key);
-
     }
 
     @Override
@@ -79,8 +78,8 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
     }
 
     @Override
-    public void printAllObjects() {
-        cache.printAllObjects();
+    public String toString(){
+        return cache.toString();
     }
 
     public int getFrequency(K key) {

@@ -6,6 +6,7 @@ import java.io.IOException;
 
 /**
  * Realisation of two level Cache with LRU strategy.
+ *
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
  */
@@ -78,11 +79,7 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
     }
 
     @Override
-    public void printAllObjects() {
-        System.out.println("RAM cache (" + ramCache.sizeOfCache() + " items):");
-        ramCache.printAllObjects();
-        System.out.println("HardDisk cache (" + hardDiskCache.sizeOfCache() + " items):");
-        hardDiskCache.printAllObjects();
-        System.out.println();
+    public String toString() {
+        return "RAM cache:\n" + ramCache.toString() + "\nHardDisk cache:\n" + hardDiskCache.toString();
     }
 }

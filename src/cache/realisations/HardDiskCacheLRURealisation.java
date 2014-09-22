@@ -17,7 +17,7 @@ public class HardDiskCacheLRURealisation<K, V> extends HardDiskCacheClass<K, V> 
 
     public HardDiskCacheLRURealisation(int sizeOfCache) {
         MAX_SIZE = sizeOfCache;
-        map = new LinkedHashMap<K, String>(MAX_SIZE);
+        map = new LinkedHashMap<K, String>(MAX_SIZE, 0.75F, true);
     }
 
     @Override

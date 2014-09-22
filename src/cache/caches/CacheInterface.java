@@ -7,5 +7,4 @@ public interface CacheInterface<K, V> {
     int sizeOfCache();
     void clearCache();
     boolean containsKey(K key);
-    void printAllObjects();
 }
