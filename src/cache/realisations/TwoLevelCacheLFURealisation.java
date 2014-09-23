@@ -3,7 +3,7 @@ package cache.realisations;
 import cache.caches.CacheInterface;
 
 /**
- * Realisation of two level Cache with LFU strategy.
+ * Realise two level Cache with LFU strategy.
  *
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
@@ -21,6 +21,12 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
         hardDiskCache = new HardDiskCacheLFURealisation<K, V>(MAX_SIZE_LEVEL_TWO);
     }
 
+    /**
+     * Put Object into cache. Recache if level 1 is full.
+     *
+     * @param key   key of object
+     * @param value value of object
+     */
     @Override
     public void addObject(K key, V value) {
         if (ramCache.sizeOfCache() >= MAX_SIZE_LEVEL_ONE) {
@@ -32,7 +38,9 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
     }
 
     /**
-     * Get Value of Object from Cache. Recache caches.
+     * Get Value of Object from Cache.
+     * Recache if object in level 2 have frequency more
+     * than min frequency in level 1.
      *
      * @param key Key of Object
      * @return Value of Object

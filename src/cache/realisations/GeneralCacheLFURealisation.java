@@ -4,7 +4,8 @@ import cache.caches.CacheInterface;
 import cache.frequency.FrequencyClass;
 
 /**
- * General realisation of LFU strategy in one level Cache.
+ * Realise LFU strategy in one level Cache.
+ *
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
  */
@@ -13,13 +14,14 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
     CacheInterface<K, V> cache;
     private FrequencyClass<K> frequencyMap = new FrequencyClass<K>();
 
-    public GeneralCacheLFURealisation(int sizeOfCache) {
+    protected GeneralCacheLFURealisation(int sizeOfCache) {
         MAX_SIZE = sizeOfCache;
     }
 
     /**
-     * Put Object into Cache with frequency equals 1. Control max size of Cache. Remove Least Frequency Used Object.
-     * @param key Key of Object in the Cache
+     * Put Object into Cache with frequency equals 1. Remove least frequency used object when cache is full.
+     *
+     * @param key   Key of Object in the Cache
      * @param value Value of Object in the Cache
      */
     @Override
@@ -34,9 +36,10 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
     }
 
     /**
-     * Put Object into Cache with frequency equals valueOfFrequency. Control max size of Cache. Remove Least Frequency Used Object.
-     * @param key Key of Object in the Cache
-     * @param value Value of Object in the Cache
+     * Put Object into Cache with frequency equals valueOfFrequency. Remove least frequency used object when cache is full.
+     *
+     * @param key              Key of Object in the Cache
+     * @param value            Value of Object in the Cache
      * @param valueOfFrequency Frequency of Object
      */
     public void addObject(K key, V value, int valueOfFrequency) {
@@ -49,6 +52,12 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
         frequencyMap.add(key, valueOfFrequency);
     }
 
+    /**
+     * Get Object from cache. Increase frequency.
+     *
+     * @param key Key of Object
+     * @return value
+     */
     @Override
     public V getObject(K key) {
         frequencyMap.increment(key);
@@ -78,7 +87,7 @@ abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> 
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return cache.toString();
     }
 

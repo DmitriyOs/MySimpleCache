@@ -2,10 +2,8 @@ package cache.realisations;
 
 import cache.caches.CacheInterface;
 
-import java.io.IOException;
-
 /**
- * Realisation of two level Cache with LRU strategy.
+ * Realise two level Cache with LRU strategy.
  *
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
@@ -21,9 +19,14 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         MAX_SIZE_LEVEL_TWO = maxSizeLevelTwo;
         ramCache = new RamCacheLRURealisation<K, V>(MAX_SIZE_LEVEL_ONE);
         hardDiskCache = new HardDiskCacheLRURealisation<K, V>(MAX_SIZE_LEVEL_TWO);
-
     }
 
+    /**
+     * Put Object into cache. Recache if level 1 is full.
+     *
+     * @param key key of object
+     * @param value value of object
+     */
     @Override
     public void addObject(K key, V value) {
         if (ramCache.sizeOfCache() == MAX_SIZE_LEVEL_ONE) {
@@ -33,6 +36,12 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         ramCache.addObject(key, value);
     }
 
+    /**
+     * Get Object from cache. Recache if object on level 2 (LRU strategy).
+     *
+     * @paramkey key of object
+     * @return value of object
+     */
     @Override
     public V getObject(K key) {
         if (ramCache.containsKey(key)) {

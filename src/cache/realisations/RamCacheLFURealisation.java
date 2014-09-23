@@ -4,7 +4,7 @@ import cache.caches.CacheInterface;
 import cache.caches.RamCacheClass;
 
 /**
- * Realisation of one level Ram Cache with LFU strategy.
+ * Realise one level Ram Cache with LFU strategy.
  *
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache

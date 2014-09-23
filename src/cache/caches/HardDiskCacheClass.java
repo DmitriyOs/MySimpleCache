@@ -10,7 +10,7 @@ import java.util.*;
  * @param <V> Value of Object in the Cache
  */
 public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
-    protected Map<K, String> map;
+    protected Map<K, String> map;  //K - key, String - path to file
 
     public HardDiskCacheClass() {
         map = new HashMap<K, String>();
@@ -30,8 +30,10 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
     @Override
     public void addObject(K key, V value) {
         String file = "temp\\" + key + ".cache";
+        //put path to file into map
         map.put(key, file);
 
+        //write file on HDD
         FileOutputStream fileStream;
         ObjectOutputStream objectStream;
 
@@ -63,8 +65,10 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
             return value;
         } catch (IOException ex) {
+            System.err.println(ex);
             return null;
         } catch (ClassNotFoundException ex) {
+            System.err.println(ex);
             return null;
         }
     }
