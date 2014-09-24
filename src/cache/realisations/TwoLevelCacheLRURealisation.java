@@ -70,6 +70,14 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         return ramCache.sizeOfCache() + hardDiskCache.sizeOfCache();
     }
 
+    public int sizeOfLevel1() {
+        return ramCache.sizeOfCache();
+    }
+
+    public int sizeOfLevel2() {
+        return hardDiskCache.sizeOfCache();
+    }
+
     @Override
     public void clearCache() {
         ramCache.clearCache();

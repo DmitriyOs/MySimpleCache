@@ -87,7 +87,7 @@ public class TwoLevelCacheLFURealisation<K, V> implements CacheInterface<K, V> {
         return ramCache.sizeOfCache();
     }
 
-    public int sizeOfCache2() {
+    public int sizeOfLevel2() {
         return hardDiskCache.sizeOfCache();
     }
 
