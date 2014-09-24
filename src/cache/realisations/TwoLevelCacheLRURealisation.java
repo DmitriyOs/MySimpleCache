@@ -1,6 +1,6 @@
 package cache.realisations;
 
-import cache.caches.CacheInterface;
+import cache.caches.TwoLevelCacheInterface;
 
 /**
  * Realise two level Cache with LRU strategy.
@@ -8,7 +8,7 @@ import cache.caches.CacheInterface;
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
  */
-public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
+public class TwoLevelCacheLRURealisation<K, V> implements TwoLevelCacheInterface<K, V> {
     final int MAX_SIZE_LEVEL_ONE;
     final int MAX_SIZE_LEVEL_TWO;
     private RamCacheLRURealisation<K, V> ramCache;
@@ -70,10 +70,12 @@ public class TwoLevelCacheLRURealisation<K, V> implements CacheInterface<K, V> {
         return ramCache.sizeOfCache() + hardDiskCache.sizeOfCache();
     }
 
+    @Override
     public int sizeOfLevel1() {
         return ramCache.sizeOfCache();
     }
 
+    @Override
     public int sizeOfLevel2() {
         return hardDiskCache.sizeOfCache();
     }
