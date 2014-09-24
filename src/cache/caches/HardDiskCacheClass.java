@@ -53,7 +53,7 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
 
     }
 
-    private V getFromFile(String file) {
+    private V getFromFile(String file) throws NullPointerException {
 
         try {
             FileInputStream fileStream = new FileInputStream(file);
@@ -70,19 +70,30 @@ public class HardDiskCacheClass<K, V> implements CacheInterface<K, V> {
         } catch (ClassNotFoundException ex) {
             System.err.println(ex);
             return null;
+        } catch (NullPointerException ex) {
+            throw new NullPointerException("File not exists");
         }
     }
 
     @Override
     public V getObject(K key) {
-        return getFromFile(map.get(key));
+        try {
+            return getFromFile(map.get(key));
+        } catch (NullPointerException ex) {
+            return null;
+        }
     }
 
     @Override
     public V removeObject(K key) {
-        V result = getFromFile(map.get(key));
-        File file = new File(map.remove(key));
-        file.delete();
+        V result;
+        try {
+            result = getFromFile(map.get(key));
+            File file = new File(map.remove(key));
+            file.delete();
+        } catch (NullPointerException ex) {
+            return null;
+        }
         return result;
     }
 

@@ -3,7 +3,8 @@ package cache.frequency;
 import java.util.HashMap;
 
 /**
- * Realisation of Object frequency calculating.
+ * Realise Object frequency calculating.
+ *
  * @param <K> Key of Object in the Cache
  */
 public class FrequencyClass<K> implements FrequencyInterface<K> {
@@ -11,6 +12,7 @@ public class FrequencyClass<K> implements FrequencyInterface<K> {
 
     /**
      * Put Key of Object in frequency map with frequency equals 1.
+     *
      * @param key Key of Object
      */
     @Override
@@ -20,7 +22,8 @@ public class FrequencyClass<K> implements FrequencyInterface<K> {
 
     /**
      * Put Key of Object in frequency map.
-     * @param key Key of Object
+     *
+     * @param key       Key of Object
      * @param frequency frequency of Key
      */
     @Override
@@ -30,21 +33,34 @@ public class FrequencyClass<K> implements FrequencyInterface<K> {
 
     /**
      * Increment frequency of Key.
+     *
      * @param key Key of Object
      */
     @Override
     public void increment(K key) {
-        map.put(key, map.get(key) + 1);
+        try {
+            map.put(key, map.get(key) + 1);
+        } catch (NullPointerException ex) {
+            //Object not found, nothing to do
+        }
     }
 
     @Override
     public int get(K key) {
-        return map.get(key);
+        try {
+            return map.get(key);
+        } catch (NullPointerException ex) {
+            return 0;
+        }
     }
 
     @Override
     public int remove(K key) {
-        return map.remove(key);
+        try {
+            return map.remove(key);
+        } catch (NullPointerException ex) {
+            return 0;
+        }
     }
 
     @Override
@@ -54,6 +70,7 @@ public class FrequencyClass<K> implements FrequencyInterface<K> {
 
     /**
      * Calculate Key with min frequency.
+     *
      * @return Key with min frequency
      */
     @Override

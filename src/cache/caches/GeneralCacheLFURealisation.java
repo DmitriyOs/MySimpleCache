@@ -1,6 +1,5 @@
-package cache.realisations;
+package cache.caches;
 
-import cache.caches.CacheInterface;
 import cache.frequency.FrequencyClass;
 
 /**
@@ -9,9 +8,9 @@ import cache.frequency.FrequencyClass;
  * @param <K> Key of Object in the Cache
  * @param <V> Value of Object in the Cache
  */
-abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> {
+public abstract class GeneralCacheLFURealisation<K, V> implements CacheInterface<K, V> {
     final int MAX_SIZE;
-    CacheInterface<K, V> cache;
+    protected CacheInterface<K, V> cache;
     private FrequencyClass<K> frequencyMap = new FrequencyClass<K>();
 
     protected GeneralCacheLFURealisation(int sizeOfCache) {

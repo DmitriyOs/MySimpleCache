@@ -1,6 +1,7 @@
 package cache.realisations;
 
 import cache.caches.CacheInterface;
+import cache.caches.GeneralCacheLFURealisation;
 import cache.caches.HardDiskCacheClass;
 
 /**
