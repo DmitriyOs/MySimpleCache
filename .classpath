@@ -4,5 +4,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="var" path="APPLICATION_HOME_DIR/lib/junit-4.11.jar"/>
-	<classpathentry kind="output" path="out/production/MySimpleCache"/>
+	<classpathentry kind="output" path="classes/production/MySimpleCache"/>
 </classpath>

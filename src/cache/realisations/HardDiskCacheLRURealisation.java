@@ -3,9 +3,7 @@ package cache.realisations;
 import cache.caches.HardDiskCacheClass;
 import cache.caches.LRUCacheInterface;
 
-import java.io.File;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Realise one level Hard Disk Cache with LRU strategy.
@@ -31,8 +29,6 @@ public class HardDiskCacheLRURealisation<K, V> extends HardDiskCacheClass<K, V> 
     public void addObject(K key, V value) {
         if (sizeOfCache() >= MAX_SIZE) {
             K tKey = getEldestKey();
-            //File file = new File(map.get(tKey));
-            //file.delete();
             removeObject(tKey);
         }
         super.addObject(key, value);
